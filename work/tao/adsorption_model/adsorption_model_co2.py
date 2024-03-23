@@ -16,7 +16,7 @@ from pymatgen.io.vasp.inputs import Poscar
 
 struct = Structure.from_file("../structure/sqs_222.cif")
 struct = SpacegroupAnalyzer(struct).get_conventional_standard_structure()
-slabs = SlabGenerator(struct, miller_index=[1, 1, 1], min_slab_size=6.0,
+slabs = SlabGenerator(struct, miller_index=[1, 1, 1], min_slab_size=4.0,
                       min_vacuum_size=15.0, center_slab=False, lll_reduce=True)
 
 
@@ -29,14 +29,16 @@ asf_h_entropy = AdsorbateSiteFinder(slab)
 # ads_sites = asf_h_entropy.find_adsorption_sites()
 ads_structures_li2c2o4 = asf_h_entropy.generate_adsorption_structures(adsorbate_1,
                                                                       repeat=None,
-                                                                      min_lw= 20.0,
-                                                                      find_args={"distance": 2.5},
+                                                                      min_lw= 10.0,
+                                                                      find_args={"distance": 2.5,
+                                                                                 "positions": "ontop"},
                                                                       translate=True)
 
 ads_structures_li2co3 = asf_h_entropy.generate_adsorption_structures(adsorbate_2,
                                                                      repeat=None,
-                                                                     min_lw= 20.0,
-                                                                     find_args={"distance": 2.5},
+                                                                     min_lw= 10.0,
+                                                                     find_args={"distance": 2.5,
+                                                                                "positions": "ontop"},
                                                                      translate=True)
 
 # ads_structures[0].to("POSCAR", fmt="poscar")
